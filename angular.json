@@ -13,16 +13,24 @@
       "prefix": "code-cat",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "customWebpackConfig": {
+              "path": "webpack.config.js"
+            },
             "outputPath": "dist/apps/ng-app",
             "index": "apps/ng-app/src/index.html",
             "main": "apps/ng-app/src/main.ts",
             "polyfills": "apps/ng-app/src/polyfills.ts",
             "tsConfig": "apps/ng-app/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/ng-app/src/favicon.ico", "apps/ng-app/src/assets"],
-            "styles": ["apps/ng-app/src/styles.scss"],
+            "assets": [
+              "apps/ng-app/src/favicon.ico",
+              "apps/ng-app/src/assets"
+            ],
+            "styles": [
+              "apps/ng-app/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -57,7 +65,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "ng-app:build"
           },
@@ -76,7 +84,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/ng-app/src/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/ng-app/src/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -109,7 +119,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/ng-app-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/ng-app-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
