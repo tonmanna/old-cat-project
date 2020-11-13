@@ -1,0 +1,22 @@
+<div [formGroup]="getAddressForm" class="w-full" *ngFor="let field of fields">
+  <div class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">{{ field.label }}</div>
+  <input (keyup)="changeHandler(field.field)" type="text" [attr.aria-label]="field.label" matInput
+    [formControlName]="field.field" [matAutocomplete]="auto"
+    class="w-full bg-gray-400 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+    style="background: #ececec !important;" />
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectSuggestion($event.option.value)">
+    <mat-option *ngFor="let options of filteredOptions" [value]="options">
+      <span *ngFor="let option of options | keyvalue">
+        {{ option.value }}
+      </span>
+    </mat-option>
+  </mat-autocomplete>
+</div>
+<div class="w-full">
+  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+    Address
+  </label>
+  <textarea #addressBox
+    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+    id="grid-address" type="text"> </textarea>
+</div>

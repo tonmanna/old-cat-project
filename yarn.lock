@@ -337,6 +337,13 @@
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-10.2.3.tgz#bb678c11822b9bf7ca007703a31dae090dc2c0ab"
   integrity sha512-8rtNG3HjBdUMlKcakh6gDfFvYSS5X16ymbVR0i2L/Nc4d9HuqgKrIrsNY4We/jSBoAjo/CGS8AvbscMa8oW4Eg==
 
+"@angular/material@10.2.5":
+  version "10.2.5"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-10.2.5.tgz#bdfc0bfdbadbca47db2dfd0170b8a31a3484ffd7"
+  integrity sha512-gYFqpXdLLuRYb9N1jVj9Gig/AlqsEfT/m+RtzHm4mawmHqeQbEV+0C0Qvc6fKRb1060Nkzfz8TDNGu5B+Xzq5A==
+  dependencies:
+    tslib "^2.0.0"
+
 "@angular/platform-browser-dynamic@^10.1.0":
   version "10.2.3"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-10.2.3.tgz#411b24c10ef8875f5f718c70a6314e3b178691ba"
@@ -1688,7 +1695,7 @@
     jasmine-marbles "~0.6.0"
     tslib "^2.0.0"
 
-"@nrwl/cli@10.3.3":
+"@nrwl/cli@10.3.3", "@nrwl/cli@^10.3.3":
   version "10.3.3"
   resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-10.3.3.tgz#2c4359f056aec6621d71ea71fa02b90f991cb341"
   integrity sha512-BIfIv6UKEt6RLcp+pD/c1gTyoMlD0dMNk32Y1dLgWh2oIOePjzv1R2maQjuOoExpfqzLdnPJ0rJmtcF7YfpKGQ==
@@ -6889,6 +6896,16 @@ jest@26.2.2:
     "@jest/core" "^26.2.2"
     import-local "^3.0.2"
     jest-cli "^26.2.2"
+
+jql-parser@0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/jql-parser/-/jql-parser-0.0.8.tgz#c35c050cfb41875dd58efd0d5d06632b9dc95319"
+  integrity sha512-XBFkq9mNaAnJfPelJAwHBsAkT8AX0y4bE2Zq71uB0J0F2l3ccNHgH6U6d6ixn4ErTbrjSsIfNLuyFblcbdxLPA==
+
+jqljs@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/jqljs/-/jqljs-0.3.2.tgz#61b99ea4c468f3bc438bda457d7af6458f315e3f"
+  integrity sha512-mxdgHyk07woO0usYJri4Jj6hsDXlBSkYxE04Yu9uDB28tvzS7m3mIvn7/7hAKP04WW2wCvjNMZFm/netXwnVLA==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
