@@ -1,40 +1,34 @@
 module Main exposing (main)
 
 import Browser
-import Html exposing (Html, button, div, text)
+import Html exposing (..)
+import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 
 
 type alias Model =
-    { count : Int }
+    ()
 
 
 initialModel : Model
 initialModel =
-    { count = 0 }
+    ()
 
 
 type Msg
-    = Increment
-    | Decrement
+    = NoOp
 
 
 update : Msg -> Model -> Model
-update msg model =
-    case msg of
-        Increment ->
-            { model | count = model.count + 1 }
-
-        Decrement ->
-            { model | count = model.count - 1 }
+update _ _ =
+    ()
 
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ button [ onClick Increment ] [ text "+1" ]
-        , div [] [ text <| String.fromInt model.count ]
-        , button [ onClick Decrement ] [ text "-1" ]
+    div [ class "py-4" ]
+        [ h1 [ class "text-xl font-bold" ]
+            [ text "Elm is here!" ]
         ]
 
 
