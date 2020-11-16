@@ -4,12 +4,11 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DisplayAddressComponent } from './display-address/display-address.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 @NgModule({
-  declarations: [AppComponent, DisplayAddressComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     NoopAnimationsModule,
