@@ -33,5 +33,16 @@
         </button>
       </div>
     </div>
+    <div class="flex flex-wrap -mx-4 mb-6">
+      <div
+        class="w-full md:w-1/2 px-3 mb-6 md:mb-0 p-10"
+        *ngIf="playerList$ | async; let playerList"
+      >
+        <div *ngFor="let player of playerList; let i = index">
+          {{ i }}:{{ player.name }} With out volwel :
+          {{ player.withoutVowelsName }} :: correct : {{ player.correct }}
+        </div>
+      </div>
+    </div>
   </form>
 </div>

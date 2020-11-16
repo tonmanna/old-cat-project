@@ -7,4 +7,6 @@ const app = Elm.Main.init({
 
 storeElmApp(app);
 
-sendToNG('Hello from Elm');
+app.ports.sendToNG.subscribe((name) => {
+  sendToNG(name);
+});
