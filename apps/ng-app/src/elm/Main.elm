@@ -93,7 +93,9 @@ view model =
                     ]
                 ]
             ]
-        , ul [] <|
+        , h1 [ class "mt-8 text-xl font-bold" ]
+            [ text "Received" ]
+        , ul [ class "mt-4" ] <|
             List.map
                 (\( v, flag ) ->
                     li []
