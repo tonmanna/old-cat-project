@@ -1,6 +1,6 @@
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
-export const sendToNG$ = new BehaviorSubject();
+export const sendToNG$ = new Subject();
 
 export function sendToNG(value) {
   sendToNG$.next(value);

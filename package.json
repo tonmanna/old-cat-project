@@ -46,6 +46,7 @@
     "elm-webpack-loader": "^7.0.1",
     "jql-parser": "0.0.8",
     "jqljs": "^0.3.2",
+    "ngx-toastr": "^13.1.0",
     "rxjs": "~6.5.5",
     "zone.js": "^0.10.2"
   },
