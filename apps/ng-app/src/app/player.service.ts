@@ -7,7 +7,7 @@ export interface RulesPlayer {
 }
 
 export function removeVowels(name: string): string {
-  name
+  name = name
     .replace(/a/gi, '')
     .replace(/e/gi, '')
     .replace(/i/gi, '')

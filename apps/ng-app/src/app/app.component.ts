@@ -49,6 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   update() {
     if (this.myForm.valid) {
+      
       sendToElm(this.myForm.value);
     }
   }
