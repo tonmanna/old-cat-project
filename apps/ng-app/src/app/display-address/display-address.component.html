@@ -1,6 +1,6 @@
 <div [formGroup]="getAddressForm" class="w-full" *ngFor="let field of fields">
   <div class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">{{ field.label }}</div>
-  <input (keyup)="changeHandler(field.field)" type="text" [attr.aria-label]="field.label" matInput
+  <input type="text" [attr.aria-label]="field.label" matInput
     [formControlName]="field.field" [matAutocomplete]="auto"
     class="w-full bg-gray-400 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
     style="background: #ececec !important;" />
