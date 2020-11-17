@@ -45,17 +45,12 @@ export class AppComponent implements OnInit, OnDestroy {
       )
       .subscribe((player: RulesPlayer) => {
         console.log('player: ', player);
-        if (player.image !== '404') {
-          if (!this.playerListService.isStartQuestion()) {
-            this.playerListService.checkWIthLastPlayerName(player) ? (player.correct = true) : (player.correct = false);
-          }
-          this.playerListService.recivePlayerName.push(player);
-
-          this.playerList$ = of(this.playerListService.recivePlayerName);
-        } else {
-          //NOT WORK FROM ELM SIDE
-          this.toastr.info('Not found Player');
+        if (!this.playerListService.isStartQuestion()) {
+          this.playerListService.checkWIthLastPlayerName(player) ? (player.correct = true) : (player.correct = false);
         }
+        this.playerListService.recivePlayerName.push(player);
+
+        this.playerList$ = of(this.playerListService.recivePlayerName);
         this._cdr.detectChanges();
       });
     this.myForm = new FormGroup({
