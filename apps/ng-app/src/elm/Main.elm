@@ -4,7 +4,10 @@ import Browser
 import Html exposing (..)
 import Html.Attributes exposing (class, for, id, placeholder, type_, value)
 import Html.Events exposing (onClick, onInput, onSubmit)
+import Http
+import Json.Decode
 import List
+import List.Extra
 
 
 port sendToNG : String -> Cmd msg
@@ -20,16 +23,22 @@ subscriptions model =
 
 type alias Model =
     { playerName : String
-    , ngValues : List ( String, Bool )
-    , lastSubmit : String
+    , ngValues : List ( String, ValidationStatus )
+    , lastSubmit : Maybe String
     }
+
+
+type ValidationStatus
+    = Checking
+    | Valid
+    | Invalid
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
     ( { playerName = ""
       , ngValues = []
-      , lastSubmit = ""
+      , lastSubmit = Nothing
       }
     , Cmd.none
     )
@@ -39,28 +48,55 @@ type Msg
     = NgValueReceived String
     | PlayerNameChanged String
     | PlayerNameSubmit
+    | SearchResultReceived String (Result Http.Error (List Player))
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         NgValueReceived value ->
+            let
+                nameMatched =
+                    Maybe.map (\s -> removeVowels value |> containsChar s) model.lastSubmit
+                        |> Maybe.withDefault True
+            in
             ( { model
                 | ngValues =
-                    ( value
-                    , removeVowels value
-                        |> containsChar model.lastSubmit
-                    )
-                        :: model.ngValues
+                    List.append model.ngValues
+                        [ if nameMatched then
+                            ( value, Checking )
+
+                          else
+                            ( value, Invalid )
+                        ]
               }
-            , Cmd.none
+            , if nameMatched then
+                searhForPlayers value
+
+              else
+                Cmd.none
             )
 
         PlayerNameChanged name ->
             ( { model | playerName = name }, Cmd.none )
 
         PlayerNameSubmit ->
-            ( { model | lastSubmit = model.playerName }, sendToNG model.playerName )
+            ( { model | lastSubmit = Just model.playerName }
+            , sendToNG model.playerName
+            )
+
+        SearchResultReceived playerName (Ok []) ->
+            ( { model | ngValues = replaceLast ( playerName, Invalid ) model.ngValues }
+            , Cmd.none
+            )
+
+        SearchResultReceived playerName (Ok _) ->
+            ( { model | ngValues = replaceLast ( playerName, Valid ) model.ngValues }
+            , Cmd.none
+            )
+
+        SearchResultReceived playerName (Err _) ->
+            ( model, Cmd.none )
 
 
 view : Model -> Html Msg
@@ -97,13 +133,17 @@ view model =
             [ text "Received" ]
         , ul [ class "mt-4" ] <|
             List.map
-                (\( v, flag ) ->
+                (\( v, status ) ->
                     li []
-                        [ if flag then
-                            text <| v ++ " ✅"
+                        [ case status of
+                            Valid ->
+                                text <| v ++ " ✅"
 
-                          else
-                            text <| v ++ " ❌"
+                            Invalid ->
+                                text <| v ++ " ❌"
+
+                            Checking ->
+                                text <| v ++ " ⏳"
                         ]
                 )
                 model.ngValues
@@ -122,7 +162,7 @@ main =
 
 removeVowels : String -> String
 removeVowels original =
-    String.filter (\c -> List.member c [ 'a', 'e', 'i', 'o', 'u' ]) original
+    Debug.log "vowels_removed" <| String.filter (\c -> not <| List.member c [ 'a', 'e', 'i', 'o', 'u' ]) original
 
 
 containsChar : String -> String -> Bool
@@ -134,3 +174,37 @@ containsChar str input =
     String.filter (\c -> List.member c chars) str
         |> String.toList
         |> List.isEmpty
+        |> not
+
+
+searhForPlayers : String -> Cmd Msg
+searhForPlayers name =
+    Http.get
+        { url = "http://localhost:3000/players?name=" ++ name
+        , expect = Http.expectJson (SearchResultReceived name) (Json.Decode.list playerDecoder)
+        }
+
+
+type alias Player =
+    { name : String
+    , team : Maybe String
+    , image : String
+    }
+
+
+playerDecoder : Json.Decode.Decoder Player
+playerDecoder =
+    Json.Decode.map3 Player
+        (Json.Decode.at [ "name" ] Json.Decode.string)
+        (Json.Decode.at [ "team" ] (Json.Decode.maybe Json.Decode.string))
+        (Json.Decode.at [ "image" ] Json.Decode.string)
+
+
+replaceLast : t -> List t -> List t
+replaceLast item list =
+    List.reverse list
+        |> List.Extra.uncons
+        |> Maybe.map Tuple.second
+        |> Maybe.map ((::) item)
+        |> Maybe.withDefault [ item ]
+        |> List.reverse
