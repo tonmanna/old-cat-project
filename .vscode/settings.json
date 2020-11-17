@@ -1,0 +1,22 @@
+{
+  "files.exclude": {
+    ".vscode": false,
+    "**/.git": true, // this is a default value
+    "**/.DS_Store": true, // this is a default value
+    "**/node_modules": true, // this excludes all folders
+    "**/dist": true,
+    ".storybook": true,
+    "**/coverage": true,
+  },
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    // For ESLint
+    "source.fixAll.eslint": true,
+    // For TSLint
+    "source.fixAll.tslint": true,
+    // For Stylelint
+    "source.fixAll.stylelint": true,
+  },
+}
+
+// nx test --test-path-pattern=audience.service.spec.ts
