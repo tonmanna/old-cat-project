@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 
 export interface RulesPlayer {
   name: string;
+  guess: string;
   withoutVowelsName: string;
   image?: string;
   correct: boolean;
@@ -38,17 +39,17 @@ export class PlayerListService {
       params: httpParam,
     });
   }
-  public fetchMatchPlayer(player: RulesPlayer): Observable<string> {
-    return this.fetchPlayers(player.name).pipe<string>(
+  public fetchMatchPlayer(player: RulesPlayer): Observable<APIPlayerResponse> {
+    return this.fetchPlayers(player.name).pipe<APIPlayerResponse>(
       map((result) => {
         if (result.length > 0) {
           //if (result[0].name.toLocaleLowerCase() == player.name.toLocaleLowerCase()) {
-          return result[0].image;
+          return result[0];
           // }
           // this.toastr.warning(`Not found Player name ${player.name}`, 'Not found.');
           // return '404';
         } else {
-          return '404';
+          return {} as APIPlayerResponse;
         }
       })
     );

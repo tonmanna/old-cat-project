@@ -34,22 +34,25 @@ export class AppComponent implements OnInit, OnDestroy {
             name: value,
             withoutVowelsName: removeVowels(value),
             image: '',
+            guess: '',
           } as RulesPlayer;
           return this.playerListService.fetchMatchPlayer(player).pipe(
-            map((image) => {
-              player.image = image;
+            map((person) => {
+              if (Object.keys(person).length > 0) {
+                player.guess = person.name;
+                player.image = person.image;
+              }
               return { ...player } as RulesPlayer;
             })
           );
         })
       )
       .subscribe((player: RulesPlayer) => {
-        console.log('player: ', player);
         if (!this.playerListService.isStartQuestion()) {
           this.playerListService.checkWIthLastPlayerName(player) ? (player.correct = true) : (player.correct = false);
         }
+        if (!player.guess) player.correct = false;
         this.playerListService.recivePlayerName.push(player);
-
         this.playerList$ = of(this.playerListService.recivePlayerName);
         this._cdr.detectChanges();
       });

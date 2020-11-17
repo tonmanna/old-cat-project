@@ -11,16 +11,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    NoopAnimationsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    HttpClientModule,
-    ToastrModule.forRoot(),
-    MatAutocompleteModule,
-  ],
+  imports: [BrowserModule, NoopAnimationsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, HttpClientModule, ToastrModule.forRoot(), MatAutocompleteModule],
   providers: [],
   bootstrap: [AppComponent],
 })

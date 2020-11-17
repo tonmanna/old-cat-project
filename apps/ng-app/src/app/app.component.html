@@ -24,10 +24,10 @@
         </button>
       </div>
     </div>
-    <div class="flex flex-wrap -mx-4 mb-6">
+    <div class="w-full">
       <div class="w-full text-sm" *ngIf="playerList$ | async; let playerList">
         <div *ngFor="let player of playerList; let i = index">
-          <img [src]="player.image" >{{ i }}: {{ player.name }} {{ player.withoutVowelsName }} : {{ player.correct ? '☑️' : '❌' }}
+          <img class="img" [src]="player.image" onerror="if (this.src != './assets/blank.jpg') this.src = './assets/blank.jpg'" >{{ i }}: Input: {{ player.name }} <span *ngIf="player.guess.length>0"> Match with :{{ player.guess}} </span>{{ player.correct ? '☑️' : '❌' }}
         </div>
       </div>
     </div>
