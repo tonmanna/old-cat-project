@@ -69,11 +69,7 @@ export class AppComponent implements OnInit, OnDestroy {
         withoutVowelsName: removeVowels(this.myForm.value.playerName),
       } as RulesPlayer;
       this.playerListService.sendPlayerName.push(player);
-      this.playerListService.fetchMatchPlayer(player).subscribe((result) => {
-        if (result !== '404') {
-          sendToElm(this.myForm.value);
-        }
-      }, takeUntil(this.destroy$));
+      sendToElm(this.myForm.value);
     } else {
       this.toastr.warning('Player name are require.', 'Require field');
     }

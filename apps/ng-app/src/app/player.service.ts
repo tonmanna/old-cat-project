@@ -42,13 +42,11 @@ export class PlayerListService {
     return this.fetchPlayers(player.name).pipe<string>(
       map((result) => {
         if (result.length > 0) {
-          for (let i = 0; i < result.length; i++) {
-            if (result[i].name.toLocaleLowerCase() == player.name.toLocaleLowerCase()) {
-              return result[i].image;
-            }
-          }
-          this.toastr.warning(`Not found Player name ${player.name}. The most similar player name is ${result[0].name} `, 'Not found.');
-          return '404';
+          //if (result[0].name.toLocaleLowerCase() == player.name.toLocaleLowerCase()) {
+          return result[0].image;
+          // }
+          // this.toastr.warning(`Not found Player name ${player.name}`, 'Not found.');
+          // return '404';
         } else {
           return '404';
         }
